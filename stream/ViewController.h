@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController : UIViewController
 
+@property (nonatomic,strong) IBOutlet UIView *controllerView;
+@property (nonatomic,strong) MPMoviePlayerController* mc;
 @end

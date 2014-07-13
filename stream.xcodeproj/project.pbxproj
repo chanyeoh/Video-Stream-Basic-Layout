@@ -21,6 +21,7 @@
 		65BD485E19710A1100489F88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD484019710A1100489F88 /* UIKit.framework */; };
 		65BD486619710A1100489F88 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65BD486419710A1100489F88 /* InfoPlist.strings */; };
 		65BD486819710A1100489F88 /* streamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD486719710A1100489F88 /* streamTests.m */; };
+		65BD487419710A6700489F88 /* LBYouTubeExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD487319710A6700489F88 /* LBYouTubeExtractor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		65BD486319710A1100489F88 /* streamTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "streamTests-Info.plist"; sourceTree = "<group>"; };
 		65BD486519710A1100489F88 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65BD486719710A1100489F88 /* streamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = streamTests.m; sourceTree = "<group>"; };
+		65BD487219710A6700489F88 /* LBYouTubeExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBYouTubeExtractor.h; sourceTree = "<group>"; };
+		65BD487319710A6700489F88 /* LBYouTubeExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBYouTubeExtractor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 		65BD484219710A1100489F88 /* stream */ = {
 			isa = PBXGroup;
 			children = (
+				65BD487119710A4700489F88 /* YouTube Stream */,
 				65BD484B19710A1100489F88 /* AppDelegate.h */,
 				65BD484C19710A1100489F88 /* AppDelegate.m */,
 				65BD484E19710A1100489F88 /* Main.storyboard */,
@@ -150,6 +154,15 @@
 				65BD486419710A1100489F88 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65BD487119710A4700489F88 /* YouTube Stream */ = {
+			isa = PBXGroup;
+			children = (
+				65BD487219710A6700489F88 /* LBYouTubeExtractor.h */,
+				65BD487319710A6700489F88 /* LBYouTubeExtractor.m */,
+			);
+			name = "YouTube Stream";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +264,7 @@
 			files = (
 				65BD485319710A1100489F88 /* ViewController.m in Sources */,
 				65BD484D19710A1100489F88 /* AppDelegate.m in Sources */,
+				65BD487419710A6700489F88 /* LBYouTubeExtractor.m in Sources */,
 				65BD484919710A1100489F88 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
