@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DrexelCachePlayer.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController : UIViewController
 
-@property (nonatomic,strong) IBOutlet UIView *controllerView;
-@property (nonatomic,strong) MPMoviePlayerController* mc;
+@property (nonatomic,strong) IBOutlet DrexelCachePlayer *controllerView;
 @end

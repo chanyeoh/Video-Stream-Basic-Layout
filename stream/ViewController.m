@@ -7,43 +7,46 @@
 //
 
 #import "ViewController.h"
-#import "LBYouTubeExtractor.h"
+#import "DrexelCachePlayer.h"
+#import "DrexelCacheVideoDownloader.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
+@synthesize controllerView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    LBYouTubeExtractor* extractor = [[LBYouTubeExtractor alloc] initWithURL:[NSURL URLWithString:@"http://www.youtube.com/watch?v=1fTIhC1WSew&list=FLEYfH4kbq85W_CiOTuSjf8w&feature=mh_lolz"] quality:LBYouTubeVideoQualityLarge];
+    // Play Video (Still Need Fixes)
+    /*controllerView = [[DrexelCachePlayer alloc]initWithView:controllerView withFilename:@"output.mp4" withURL:[NSURL URLWithString:@"http://download.wavetlan.com/SVV/Media/HTTP/H264/Talkinghead_Media/H264_test1_Talkinghead_mp4_480x360.mp4"]];
     
-    [extractor extractVideoURLWithCompletionBlock:^(NSURL *videoURL, NSError *error) {
-        if(!error) {
-            // TODO videoURL is the url of the extracted video
-            // Take a look @ https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/01_UsingAssets.html
-            // Look at 'Trimming and Transcoding into a Movie. This would assist you in completing this task. Take
-            // 2 -3 days would be able to finish it.
-            
-            
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", videoURL]];
-            _mc = [[MPMoviePlayerController alloc]
-                                                   initWithContentURL:url];
-
-            _mc.view.frame = self.controllerView.bounds; //Set the size
-            
-            [self.controllerView addSubview:_mc.view]; //Show the view
-            [_mc play]; //Start playing
-            
-            NSLog(@"Did extract video URL using completion block: %@", videoURL);
-        } else {
-            NSLog(@"Failed extracting video URL using block due to error:%@", error);
-        }
-    }];
+    [controllerView play];*/
+    
+    // Download Cache (Still Need Fixes)
+    /*DrexelCacheVideoDownloader *drexelCache = [[DrexelCacheVideoDownloader alloc]initWithFilename:@"http://download.wavetlan.com/SVV/Media/HTTP/H264/Talkinghead_Media/H264_test1_Talkinghead_mp4_480x360.mp4" withPercentage:0.7];
+    [drexelCache extractVideoCompetion:^(NSMutableData *respData) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSFileManager *manager = [NSFileManager defaultManager];
+        
+        
+        NSString *outputURL = [documentsDirectory stringByAppendingPathComponent:@"output"] ;
+        [manager createDirectoryAtPath:outputURL withIntermediateDirectories:YES attributes:nil error:nil];
+        
+        outputURL = [outputURL stringByAppendingPathComponent:@"output.mp4"];
+        // Remove Existing File
+        [manager removeItemAtPath:outputURL error:nil];
+        
+        
+        [respData writeToFile:outputURL atomically:YES];
+    }];*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,4 +55,54 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)cutImage:(NSURL *)assetURL{
+    int startMilliseconds = (0 * 1000);
+    int endMilliseconds = (1 * 1000);
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSString *outputURL = [documentsDirectory stringByAppendingPathComponent:@"output"] ;
+    [manager createDirectoryAtPath:outputURL withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    outputURL = [outputURL stringByAppendingPathComponent:@"output1.mp4"];
+    [manager removeItemAtPath:outputURL error:nil];
+    
+    AVURLAsset *videoAsset = [AVURLAsset URLAssetWithURL:assetURL options:nil];
+    
+    
+    
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:AVAssetExportPresetHighestQuality];
+    exportSession.outputURL = [[NSURL alloc] initFileURLWithPath:outputURL isDirectory:true] ;
+    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
+    CMTimeRange timeRange = CMTimeRangeMake(CMTimeMake(startMilliseconds, 1000), CMTimeMake(endMilliseconds - startMilliseconds, 1000));
+    exportSession.timeRange = timeRange;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        switch (exportSession.status) {
+            case AVAssetExportSessionStatusCompleted:
+                // Custom method to import the Exported Video
+                //[self loadAssetFromFile:exportSession.outputURL];
+                //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", videoURL]];
+                NSLog(@"HERE");
+                //_mc.initialPlaybackTime
+    
+                break;
+            case AVAssetExportSessionStatusFailed:
+                //
+                NSLog(@"Failed:%@",exportSession.error);
+                break;
+            case AVAssetExportSessionStatusCancelled:
+                //
+                NSLog(@"Canceled:%@",exportSession.error);
+                break;
+            default:
+                NSLog(@"Error");
+                break;
+        }
+    }];
+}
 @end

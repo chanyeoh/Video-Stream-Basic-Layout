@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65683F681982A8BB002BDC19 /* DrexelCacheVideoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */; };
+		65683F6B1982A9FE002BDC19 /* DrexelCachePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F6A1982A9FE002BDC19 /* DrexelCachePlayer.m */; };
 		65BD483D19710A1100489F88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD483C19710A1100489F88 /* Foundation.framework */; };
 		65BD483F19710A1100489F88 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD483E19710A1100489F88 /* CoreGraphics.framework */; };
 		65BD484119710A1100489F88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD484019710A1100489F88 /* UIKit.framework */; };
@@ -35,6 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65683F661982A8BB002BDC19 /* DrexelCacheVideoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCacheVideoDownloader.h; sourceTree = "<group>"; };
+		65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrexelCacheVideoDownloader.m; sourceTree = "<group>"; };
+		65683F691982A9FE002BDC19 /* DrexelCachePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCachePlayer.h; sourceTree = "<group>"; };
+		65683F6A1982A9FE002BDC19 /* DrexelCachePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrexelCachePlayer.m; sourceTree = "<group>"; };
 		65BD483919710A1100489F88 /* stream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BD483C19710A1100489F88 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65BD483E19710A1100489F88 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +129,10 @@
 				65BD485219710A1100489F88 /* ViewController.m */,
 				65BD485419710A1100489F88 /* Images.xcassets */,
 				65BD484319710A1100489F88 /* Supporting Files */,
+				65683F661982A8BB002BDC19 /* DrexelCacheVideoDownloader.h */,
+				65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */,
+				65683F691982A9FE002BDC19 /* DrexelCachePlayer.h */,
+				65683F6A1982A9FE002BDC19 /* DrexelCachePlayer.m */,
 			);
 			path = stream;
 			sourceTree = "<group>";
@@ -265,6 +275,8 @@
 				65BD485319710A1100489F88 /* ViewController.m in Sources */,
 				65BD484D19710A1100489F88 /* AppDelegate.m in Sources */,
 				65BD487419710A6700489F88 /* LBYouTubeExtractor.m in Sources */,
+				65683F6B1982A9FE002BDC19 /* DrexelCachePlayer.m in Sources */,
+				65683F681982A8BB002BDC19 /* DrexelCacheVideoDownloader.m in Sources */,
 				65BD484919710A1100489F88 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +486,7 @@
 				65BD486D19710A1100489F88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65BD486E19710A1100489F88 /* Build configuration list for PBXNativeTarget "streamTests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +495,7 @@
 				65BD487019710A1100489F88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

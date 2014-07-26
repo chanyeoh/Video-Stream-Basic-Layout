@@ -110,11 +110,9 @@ NSInteger const LBYouTubePlayerExtractorErrorCodeNoJSONData   =    3;
         else {
             checkingResult = [videos lastObject];
         }
-        NSLog(@"%@", html);
         NSMutableString* streamURL = [NSMutableString stringWithString: [string substringWithRange:checkingResult.range]];
         [streamURL replaceOccurrencesOfString:@"\\\\u0026" withString:@"&" options:NSCaseInsensitiveSearch range:NSMakeRange(0, streamURL.length)];
         [streamURL replaceOccurrencesOfString:@"\\\\\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, streamURL.length)];
-        NSLog(@"%@", streamURL);
         
         return [NSURL URLWithString:streamURL];
     }
