@@ -10,6 +10,8 @@
 #import "DrexelCachePlayer.h"
 #import "DrexelCacheVideoDownloader.h"
 #import <AVFoundation/AVFoundation.h>
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface ViewController ()
 
@@ -21,6 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self postSessionKey];
 	// Do any additional setup after loading the view, typically from a nib.
     
     // Play Video (Still Need Fixes)
@@ -105,4 +108,78 @@
         }
     }];
 }
+-(void)postSessionKey
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = nil;
+    [manager POST:@"https://api.point.io/v2/auth.json?email=drexelProjects%40outlook.com&password=drexelECE&apikey=40958726-AB7A-4679-85C5D142E907CAB1" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"%@", (NSDictionary *)responseObject);
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSDictionary *resultDict = (NSDictionary *)[dict objectForKey:@"RESULT"];
+        NSString *sessionKey = (NSString *)[resultDict objectForKey:@"SESSIONKEY"];
+        
+        //NSLog(@"\n\nSession Key: - %@", sessionKey);
+        [self getShareID:sessionKey];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+-(void)getShareID:(NSString*)sessionKey
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.requestSerializer setValue:sessionKey forHTTPHeaderField:@"Authorization"];
+    [manager GET:@"https://api.point.io/v2/accessrules/list.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        NSArray *columnComponents = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"COLUMNS"];
+        NSUInteger shareIDIndex = [columnComponents indexOfObject:@"SHAREID"];
+        
+        NSArray *Data = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"DATA"];
+        NSArray *DataComponents = [Data objectAtIndex:0];
+        NSString *shareID = [DataComponents objectAtIndex:shareIDIndex];
+        
+        //NSLog(@"\n\nShare ID: - %@", shareID);
+        [self getFolderList:sessionKey :shareID];
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
+}
+
+-(void)getFolderList:(NSString*)sessionKey:(NSString*)folderID
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.requestSerializer setValue:sessionKey forHTTPHeaderField:@"Authorization"];
+    NSString *requestURL = @"https://api.point.io/v2/folders/list.json";
+    requestURL = [requestURL stringByAppendingFormat:@"?folderId=%@",folderID];
+    //NSLog(@"%@",requestURL);
+    [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         //Find the index of TYPE within the COLUMN key
+         NSArray *columnComponents = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"COLUMNS"];
+         NSUInteger typeIndex = [columnComponents indexOfObject:@"TYPE"];
+         //NSLog(@"Index of TYPE: - %li",(long)typeIndex);
+         //NSLog(@"\n\n File List: - %@", responseObject);
+         
+         //Find the corresponding TYPE values in DATA key
+         NSArray *dataComponents = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"DATA"];
+         NSUInteger lengthOfDataFiles = [dataComponents count];
+         //NSLog(@"No. of DATA files %li",(long)lengthOfDataFiles);
+         
+         // Loop through the individual subArrays to find corresponding values
+         NSMutableArray *typeList = [[NSMutableArray alloc]init];
+         for (int i = 0; i<lengthOfDataFiles; i++) {
+             NSArray *temp = [dataComponents objectAtIndex:i];
+             [typeList addObject:[temp objectAtIndex:typeIndex]];
+         }
+         NSLog(@"\n%@",typeList);
+         
+     }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
+}
+
 @end
