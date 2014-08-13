@@ -58,7 +58,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+/*
 -(void)cutImage:(NSURL *)assetURL{
     int startMilliseconds = (0 * 1000);
     int endMilliseconds = (1 * 1000);
@@ -108,6 +108,7 @@
         }
     }];
 }
+ */
 -(void)postSessionKey
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -118,7 +119,7 @@
         NSDictionary *resultDict = (NSDictionary *)[dict objectForKey:@"RESULT"];
         NSString *sessionKey = (NSString *)[resultDict objectForKey:@"SESSIONKEY"];
         
-        //NSLog(@"\n\nSession Key: - %@", sessionKey);
+        NSLog(@"\n\nSession Key: - %@", sessionKey);
         [self getShareID:sessionKey];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -133,14 +134,13 @@
     [manager GET:@"https://api.point.io/v2/accessrules/list.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
-        NSArray *columnComponents = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"COLUMNS"];
+        NSArray *columnComponents = (NSArray *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"COLUMNS"];
         NSUInteger shareIDIndex = [columnComponents indexOfObject:@"SHAREID"];
-        
-        NSArray *Data = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"DATA"];
+        NSArray *Data = (NSArray *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"DATA"];
         NSArray *DataComponents = [Data objectAtIndex:0];
         NSString *shareID = [DataComponents objectAtIndex:shareIDIndex];
         
-        //NSLog(@"\n\nShare ID: - %@", shareID);
+        NSLog(@"\n\nShare ID: - %@", shareID);
         [self getFolderList:sessionKey :shareID];
     }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -158,28 +158,68 @@
     [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          //Find the index of TYPE within the COLUMN key
-         NSArray *columnComponents = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"COLUMNS"];
+         NSArray *columnComponents = (NSArray *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"COLUMNS"];
          NSUInteger typeIndex = [columnComponents indexOfObject:@"TYPE"];
+         NSUInteger nameIndex = [columnComponents indexOfObject:@"NAME"];
+         NSUInteger fileIDIndex = [columnComponents indexOfObject:@"FILEID"];
          //NSLog(@"Index of TYPE: - %li",(long)typeIndex);
          //NSLog(@"\n\n File List: - %@", responseObject);
          
          //Find the corresponding TYPE values in DATA key
-         NSArray *dataComponents = (NSDictionary *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"DATA"];
+         NSArray *dataComponents = (NSArray *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"DATA"];
          NSUInteger lengthOfDataFiles = [dataComponents count];
          //NSLog(@"No. of DATA files %li",(long)lengthOfDataFiles);
          
          // Loop through the individual subArrays to find corresponding values
          NSMutableArray *typeList = [[NSMutableArray alloc]init];
+         NSMutableArray *nameList = [[NSMutableArray alloc]init];
+         NSMutableArray *fileIDList = [[NSMutableArray alloc]init];
          for (int i = 0; i<lengthOfDataFiles; i++) {
              NSArray *temp = [dataComponents objectAtIndex:i];
              [typeList addObject:[temp objectAtIndex:typeIndex]];
+             [fileIDList addObject:[temp objectAtIndex:fileIDIndex]];
+             // To check for the list of dataComponents that have the TYPE "FILE" & and file extension of .mp4
+             /*if ([[temp objectAtIndex:typeIndex]  isEqual: @"FILE"] && [[temp objectAtIndex:nameIndex] rangeOfString:@".mp4"].location != NSNotFound) {
+                 [nameList addObject:[temp objectAtIndex:nameIndex]];
+             }*/
+             [nameList addObject:[temp objectAtIndex:nameIndex]];
          }
-         NSLog(@"\n%@",typeList);
+         NSLog(@"\n File ID list \n%@",fileIDList);
+         NSLog(@"\n Name list \n%@",nameList);
+         NSLog(@"\n Type List \n%@",typeList);
+         //NSLog(@"\n\n File List: - %@", responseObject);
          
+         // Obtain FILEID for Keywords.txt
+         NSUInteger nameIndexOfKeywords = [nameList indexOfObject:@"Keywords.txt"];
+         //NSLog(@"Index of Keywords.txt: - %li",(long)nameIndexOfKeywords);
+         NSString *fileIDofKeyword = [fileIDList objectAtIndex:nameIndexOfKeywords];
+         NSLog(@"\n File ID list \n%@",fileIDofKeyword);
+         
+         [self getKeywordDownload:sessionKey :folderID :@"Keywords.txt":fileIDofKeyword];
      }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
          }];
+}
+
+-(void)getKeywordDownload:(NSString*)sessionKey:(NSString*)folderID:(NSString*)fileName:(NSString*)fileID
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.requestSerializer setValue:sessionKey forHTTPHeaderField:@"Authorization"];
+    NSString *requestURL = @"https://api.point.io/v2/folders/files/download.json";
+    requestURL = [requestURL stringByAppendingFormat:@"?folderid=%@&filename=%@&fileid=%@",folderID,fileName,fileID];
+    //NSLog(@"%@",requestURL);
+    
+    [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSLog(@"\n\n File List: - %@", responseObject);
+         NSString *downloadLink = [responseObject objectForKey:@"RESULT"];
+         NSLog(@"\n\n Download URL: - %@", downloadLink);
+     }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
+
 }
 
 @end
