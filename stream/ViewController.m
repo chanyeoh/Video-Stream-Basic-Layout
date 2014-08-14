@@ -216,12 +216,9 @@
          NSString *downloadLink = [responseObject objectForKey:@"RESULT"];
          NSLog(@"\n\n Download URL: - %@", downloadLink);
          NSURL *url = [NSURL URLWithString:downloadLink];
-         NSMutableURLRequest *request = [NSMutableURLRequest   requestWithURL:url
-                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                            timeoutInterval:10];
          NSData *textFile = [[NSData alloc]initWithContentsOfURL:url];
          NSString *textfileData = [[NSString alloc] initWithData:textFile encoding:NSASCIIStringEncoding];
-         NSLog(@"%@",textfileData);
+         NSLog(@"\n\n%@",textfileData);
      }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
