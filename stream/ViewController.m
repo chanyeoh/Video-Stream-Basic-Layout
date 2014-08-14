@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self postSessionKey];
+    //[self postSessionKey];
 	// Do any additional setup after loading the view, typically from a nib.
     
     // Play Video (Still Need Fixes)
@@ -109,6 +109,11 @@
     }];
 }
  */
+
+-(void)keywordAlgorithm
+{
+    //NSMutableDictionary
+}
 -(void)postSessionKey
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
