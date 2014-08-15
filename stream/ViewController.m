@@ -24,6 +24,7 @@
 {
     [super viewDidLoad];
 
+
     self.title = @"Loading...";
     OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
     [oneDrive getFileList:^(NSArray *fileList, NSString *keywordsText, NSError *error) {
@@ -31,6 +32,7 @@
             self.title = @"Error On Loading...";
             return;
         }
+
         
         _videoArray = fileList;
         [videoTableView reloadData];
@@ -48,6 +50,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 
