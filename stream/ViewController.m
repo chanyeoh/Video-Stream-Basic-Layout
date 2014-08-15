@@ -38,8 +38,7 @@
         [videoTableView reloadData];
         self.title = @"Data Load Complete...";
         
-        
-        NSLog(@"%@", keywordsText);
+        NSLog(@"%@", [self keywordAlgorithm:keywordsText]);
     }];
     
 	// Do any additional setup after loading the view, typically from a nib.
@@ -54,9 +53,52 @@
 
 
 
--(void)keywordAlgorithm
+-(NSDictionary *)keywordAlgorithm:(NSString *)keywordText
 {
-    //NSMutableDictionary
+    
+    //NSString *newKeywordText = [keywordText stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
+
+    NSArray *keywordArray =[keywordText componentsSeparatedByString:@"\n"];
+    
+    NSString *lastKey = nil;
+    NSMutableDictionary *frameDictionary = [[NSMutableDictionary alloc]init];
+    NSMutableArray *keywordsArrayForKey = [[NSMutableArray alloc]init];
+    
+    for(NSString *keys in keywordArray){
+        NSString *tempKey = [[keys componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""];
+     
+        if([tempKey hasPrefix:@"<iframe"]){
+            if(lastKey){
+                [frameDictionary setObject:keywordsArrayForKey forKey:lastKey];
+            }
+            keywordsArrayForKey = [[NSMutableArray alloc]init];
+            lastKey = [self getFrameSource:tempKey];
+            NSLog(@"%@", lastKey);
+        }else{
+            if(![tempKey isEqualToString:@""])
+                [keywordsArrayForKey addObject:tempKey];
+        }
+    }
+    
+    if(lastKey){
+        [frameDictionary setObject:keywordsArrayForKey forKey:lastKey];
+    }
+    return frameDictionary;
+}
+
+-(NSString *)getFrameSource:(NSString *)html{
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(<iframesrc=\"(.*?)\")+?"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    
+    NSArray *matches = [regex matchesInString:html options:0 range:NSMakeRange(0, [html length])];
+    
+    for (NSTextCheckingResult *match in matches) {
+        NSString *iframeSrc = [html substringWithRange:[match rangeAtIndex:2]] ;
+        return iframeSrc;
+    }
+    return @"";
 }
 
 
