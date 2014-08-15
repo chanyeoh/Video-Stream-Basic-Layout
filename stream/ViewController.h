@@ -10,7 +10,11 @@
 #import "DrexelCachePlayer.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController{
+    NSArray *_videoArray;
+    
+    IBOutlet UITableView *videoTableView;
+}
 
 @property (nonatomic,strong) IBOutlet DrexelCachePlayer *controllerView;
 @end
