@@ -28,6 +28,7 @@
     self.title = @"Loading...";
     OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
     [oneDrive getFileList:^(NSArray *fileList, NSString *keywordsText, NSError *error) {
+        NSLog(@"%@", keywordsText);
         if(error){
             self.title = @"Error On Loading...";
             return;
