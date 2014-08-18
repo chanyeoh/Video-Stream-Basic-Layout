@@ -25,7 +25,7 @@
     [super viewDidLoad];
 
 
-    self.title = @"Loading...";
+    /*self.title = @"Loading...";
     OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
     [oneDrive getFileList:^(NSArray *fileList, NSString *keywordsText, NSError *error) {
         NSLog(@"%@", keywordsText);
@@ -40,9 +40,25 @@
         self.title = @"Data Load Complete...";
         
         NSLog(@"%@", [self keywordAlgorithm:keywordsText]);
-    }];
+    }];*/
     
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    
+    
+    // Init Array
+    _videoArray = [[NSMutableArray alloc]init];
+    
+    // Creation of pseudo data
+    // Add First Video into Array with Keywords
+    [_videoArray addObject:[self generateFakeDictionaryTitle:@"Video 1" withKeywords:[[NSArray alloc]initWithObjects:@"wildlife", @"girls", @"flowers", nil]]];
+    
+    // Add Second Video into Array with Keywords
+    [_videoArray addObject:[self generateFakeDictionaryTitle:@"Video 2" withKeywords:[[NSArray alloc]initWithObjects:@"pencil", @"girls", @"paper", nil]]];
+    
+    // TODO You add another 15 - 30 videos/fake data yourself
+    
+    NSLog(@"%@", _videoArray);
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,6 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+#pragma mark Generate Fake Data
+-(NSDictionary *)generateFakeDictionaryTitle:(NSString *)title withKeywords:(NSArray *)keywords{
+    return [[NSDictionary alloc] initWithObjectsAndKeys:title, @"title", keywords, @"keywords",  nil];
+}
 
 
 
@@ -119,10 +140,21 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = [_videoArray objectAtIndex:indexPath.row];
+    NSDictionary *videoDict = [_videoArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [videoDict objectForKey:@"title"];
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary *videoDict = [_videoArray objectAtIndex:indexPath.row];
+    
+    // Detects the keywords and print it out
+    // TODO Update it into NSUserDefaults or something to store the value
+    NSLog(@"%@", [videoDict objectForKey:@"keywords"]);
+    
+}
 
 
 

@@ -11,7 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController : UIViewController{
-    NSArray *_videoArray;
+    NSMutableArray *_videoArray;
     
     IBOutlet UITableView *videoTableView;
 }
