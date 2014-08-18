@@ -32,7 +32,7 @@
             self.title = @"Error On Loading...";
             return;
         }
-
+        NSLog(@"%@", keywordsText);
         
         _videoArray = fileList;
         [videoTableView reloadData];
@@ -73,7 +73,6 @@
             }
             keywordsArrayForKey = [[NSMutableArray alloc]init];
             lastKey = [self getFrameSource:tempKey];
-            NSLog(@"%@", lastKey);
         }else{
             if(![tempKey isEqualToString:@""])
                 [keywordsArrayForKey addObject:tempKey];

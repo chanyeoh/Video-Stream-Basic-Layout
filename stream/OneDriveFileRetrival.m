@@ -31,6 +31,8 @@
  Last Modified Date: August 15, 2014
  */
 -(void)getFileList:(OneDriveFileRetrivalCompletionBlock)completionBlock{
+    _manager = [AFHTTPRequestOperationManager manager];
+    
     if(_sessionKey == nil){
         [self getSessionKey:^(NSString *sessionKey, NSError *error) {
             if(error){
@@ -58,7 +60,6 @@
     [_manager POST:@"https://api.point.io/v2/auth.json?email=drexelProjects%40outlook.com&password=drexelECE&apikey=40958726-AB7A-4679-85C5D142E907CAB1" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSDictionary *resultDict = (NSDictionary *)[dict objectForKey:@"RESULT"];
-        
         sessionKeyBlock((NSString *)[resultDict objectForKey:@"SESSIONKEY"], nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         sessionKeyBlock(nil, error);
