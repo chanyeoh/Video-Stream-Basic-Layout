@@ -31,15 +31,12 @@
  Last Modified Date: August 15, 2014
  */
 -(void)getFileList:(OneDriveFileRetrivalCompletionBlock)completionBlock{
-    _manager = [AFHTTPRequestOperationManager manager];
-    
     if(_sessionKey == nil){
         [self getSessionKey:^(NSString *sessionKey, NSError *error) {
             if(error){
                 completionBlock(nil, nil, error);
                 return;
             }
-            
             _sessionKey = sessionKey;
             [self getFolderList:completionBlock];
         }];
@@ -50,35 +47,6 @@
 
 #pragma mark -
 #pragma mark Private Methods
-/**
- Method that is used for the completion block of videos and keywords
- Programmer: Avik Bag
- Last Modified Date: August 15, 2014
- */
--(void)getFolderList:(OneDriveFileRetrivalCompletionBlock)completionBlock{
-    [self getShareID:^(NSString *shareId, NSError *error) {
-        if(error){
-            completionBlock(nil, nil, error);
-            return;
-        }
-        [self getFolderFileList:shareId withBlock:^(NSArray *mp4FileList, NSString *keywordFileId, NSError *error) {
-            if(error){
-                completionBlock(nil, nil, error);
-                return;
-            }
-            
-            [self getKeywordDownload:shareId withFilename:@"Keywords.txt" withFileId:keywordFileId withKeywordsBlock:^(NSString *keywords, NSError *error) {
-                completionBlock(nil, nil, error);
-                if(error){
-                    return;
-                }
-                completionBlock(mp4FileList, keywords, nil);
-            }];
-            
-        }];
-    }];
-}
-
 /**
  Method that is used to get the session key
  Programmer: Avik Bag
@@ -99,12 +67,11 @@
 
 
 /**
- Method tthat is used to get the share id of the folder
+ Method that is used to get the share id of the folder
  Programmer: Avik Bag
  Last Modified Date: August 15, 2014
  */
--(void)getShareID:(OneDriveFileRetrivalShareIdBlock)shareIdBlock
-{
+-(void)getShareID:(OneDriveFileRetrivalKeywordsTextBlock)shareIdBlock{
     [_manager.requestSerializer setValue:_sessionKey forHTTPHeaderField:@"Authorization"];
     [_manager GET:@"https://api.point.io/v2/accessrules/list.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *columnComponents = (NSArray *)[(NSDictionary *)[responseObject objectForKey:@"RESULT"] objectForKey:@"COLUMNS"];
@@ -182,7 +149,6 @@
          NSURL *url = [NSURL URLWithString:downloadLink];
          NSData *textFile = [[NSData alloc]initWithContentsOfURL:url];
          NSString *textfileData = [[NSString alloc] initWithData:textFile encoding:NSASCIIStringEncoding];
-         
          keywordBlock(textfileData, nil);
      }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -190,4 +156,34 @@
          }];
     
 }
+/**
+ Method that is used for the completion block of videos and keywords
+ Programmer: Avik Bag
+ Last Modified Date: August 15, 2014
+ */
+-(void)getFolderList:(OneDriveFileRetrivalCompletionBlock)completionBlock{
+    [self getShareID:^(NSString *shareId, NSError *error) {
+        if(error){
+            completionBlock(nil, nil, error);
+            return;
+        }
+        [self getFolderFileList:shareId withBlock:^(NSArray *mp4FileList, NSString *keywordFileId, NSError *error) {
+            if(error){
+                completionBlock(nil, nil, error);
+                return;
+            }
+            
+            [self getKeywordDownload:shareId withFilename:@"Keywords.txt" withFileId:keywordFileId withKeywordsBlock:^(NSString *keywords, NSError *error) {
+                completionBlock(nil, nil, error);
+                if(error){
+                    return;
+                }
+                completionBlock(mp4FileList, keywords, nil);
+            }];
+            
+        }];
+    }];
+}
+
+
 @end
