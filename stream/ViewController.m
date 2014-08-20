@@ -25,40 +25,23 @@
     [super viewDidLoad];
 
 
-    /*self.title = @"Loading...";
+    self.title = @"Loading...";
     OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
     [oneDrive getFileList:^(NSArray *fileList, NSString *keywordsText, NSError *error) {
-        NSLog(@"%@", keywordsText);
         if(error){
             self.title = @"Error On Loading...";
             return;
         }
-        NSLog(@"%@", keywordsText);
         
-        _videoArray = fileList;
+        srcDictionary = [self keywordAlgorithm:keywordsText];
+        NSLog(@"%@", srcDictionary);
+        //_videoArray = fileList;
         [videoTableView reloadData];
         self.title = @"Data Load Complete...";
         
-        NSLog(@"%@", [self keywordAlgorithm:keywordsText]);
-    }];*/
+    }];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    
-    
-    // Init Array
-    _videoArray = [[NSMutableArray alloc]init];
-    
-    // Creation of pseudo data
-    // Add First Video into Array with Keywords
-    [_videoArray addObject:[self generateFakeDictionaryTitle:@"Video 1" withKeywords:[[NSArray alloc]initWithObjects:@"wildlife", @"girls", @"flowers", nil]]];
-    
-    // Add Second Video into Array with Keywords
-    [_videoArray addObject:[self generateFakeDictionaryTitle:@"Video 2" withKeywords:[[NSArray alloc]initWithObjects:@"pencil", @"girls", @"paper", nil]]];
-    
-    // TODO You add another 15 - 30 videos/fake data yourself
-    
-    NSLog(@"%@", _videoArray);
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,13 +49,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark -
-#pragma mark Generate Fake Data
--(NSDictionary *)generateFakeDictionaryTitle:(NSString *)title withKeywords:(NSArray *)keywords{
-    return [[NSDictionary alloc] initWithObjectsAndKeys:title, @"title", keywords, @"keywords",  nil];
-}
-
 
 
 -(NSDictionary *)keywordAlgorithm:(NSString *)keywordText
@@ -127,7 +103,7 @@
 #pragma mark Table View Delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_videoArray count];
+    return [[srcDictionary allKeys] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -140,8 +116,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    NSDictionary *videoDict = [_videoArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [videoDict objectForKey:@"title"];
+    cell.textLabel.text = [[srcDictionary allKeys] objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -152,7 +127,7 @@
     
     // Detects the keywords and print it out
     // TODO Update it into NSUserDefaults or something to store the value
-    NSLog(@"%@", [videoDict objectForKey:@"keywords"]);
+    NSLog(@"%@", [srcDictionary objectForKey:[[srcDictionary allKeys] objectAtIndex:indexPath.row]]);
     
 }
 
