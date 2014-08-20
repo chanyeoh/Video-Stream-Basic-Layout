@@ -23,8 +23,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-
+    
+    NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
+    NSDictionary* dataVaueSet = [[NSDictionary alloc]init];
+    [keywordValueSet setObject:dataVaueSet forKey:@"data"];
+    [keywordValueSet synchronize];
+    
     self.title = @"Loading...";
     OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
     [oneDrive getFileList:^(NSArray *fileList, NSString *keywordsText, NSError *error) {
@@ -115,24 +119,68 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    
-    cell.textLabel.text = [[srcDictionary allKeys] objectAtIndex:indexPath.row];
+    //NSLog(@"%@",srcDictionary);
+    videoArray =  [[srcDictionary allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];;
+    cell.textLabel.text = [videoArray objectAtIndex:indexPath.row];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSArray* tempKeywords = [srcDictionary objectForKey:[videoArray objectAtIndex:indexPath.row]];
     
-    NSDictionary *videoDict = [_videoArray objectAtIndex:indexPath.row];
+    [self dataUpdateValuesForKeywords:tempKeywords];
     
     // Detects the keywords and print it out
     // TODO Update it into NSUserDefaults or something to store the value
-    NSLog(@"%@", [srcDictionary objectForKey:[[srcDictionary allKeys] objectAtIndex:indexPath.row]]);
     
+    //NSLog(@"%@",tempKeywords);
+    
+}
+-(void)dataUpdateValuesForKeywords:(NSArray*)keywords
+{
+    // Compile the values of each keyword as the video cell is tapped.
+    NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[keywordValueSet objectForKey:@"data"]];
+    NSLog(@"test data%@",dataSet);
+    if (dataSet.count == 0) {
+        for (NSString* keyword in keywords) {
+            [dataSet setObject:[NSNumber numberWithInt:1] forKey:keyword];
+        }
+    }
+    else{
+        for (NSString*keyword in keywords) {
+                for (NSString*data in [dataSet allKeys]) {
+                //NSLog(@"%@",[dataSet allKeys]);
+                    if([keyword isEqualToString:data]){
+                        NSNumber* value =[NSNumber numberWithInt:([[dataSet objectForKey:keyword] intValue]+1)];
+                        [dataSet setObject:value forKey:keyword];
+
+                    }
+                    else if([dataSet objectForKey:keyword] ==nil){
+                    [dataSet setObject:[NSNumber numberWithInt:1] forKey:keyword];
+            }
+        }
+    }
+}
+    [keywordValueSet setObject:dataSet forKey:@"data"];
+    [keywordValueSet synchronize];
+    //NSLog(@"%@",dataSet);
 }
 
 
-
+-(void)videoRanking
+{
+    // Add all the values of the keywords in each video
+    NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[keywordValueSet objectForKey:@"data"]];
+    
+    for (NSString* key in dataSet) {
+        NSArray* value = [dataSet objectForKey:key];
+    }
+    
+    NSLog(@"%@",srcDictionary);
+}
 
 
 

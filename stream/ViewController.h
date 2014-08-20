@@ -11,8 +11,9 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController : UIViewController{
-    NSArray *_videoArray;
+    NSArray *videoArray;
     NSDictionary *srcDictionary;
+    NSMutableDictionary* dataSetKeywordValues;
     IBOutlet UITableView *videoTableView;
 }
 
