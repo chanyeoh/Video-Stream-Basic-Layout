@@ -121,8 +121,11 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
+    NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[keywordValueSet objectForKey:@"data"]];
+    
     //NSLog(@"%@",srcDictionary);
-    cell.textLabel.text = [videoArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", [videoArray objectAtIndex:indexPath.row], [[NSNumber alloc]initWithInt:[self getScoreFromKey:[srcDictionary objectForKey:[videoArray objectAtIndex:indexPath.row]] withKeyArray:dataSet]]];
     return cell;
 }
 
@@ -211,13 +214,9 @@
             [dictionaryKeys setObject:indexObj atIndexedSubscript:i];
         }
     }
-
-    for (NSString *key in dictionaryKeys) {
-        NSLog(@"%@: %@", key, [dictionary objectForKey:key]);
-    }
     
-    
-    
+    videoArray = dictionaryKeys;
+    [videoTableView reloadData];
 }
 
 -(int)getScoreFromKey:(NSArray *)keywords withKeyArray:(NSDictionary *)data{
