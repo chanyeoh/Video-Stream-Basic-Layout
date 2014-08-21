@@ -25,8 +25,8 @@
     [super viewDidLoad];
     
     NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
-    //NSDictionary* dataVaueSet = [[NSDictionary alloc]init];
-    //[keywordValueSet setObject:dataVaueSet forKey:@"data"];
+    NSDictionary* dataVaueSet = [[NSDictionary alloc]init];
+    [keywordValueSet setObject:dataVaueSet forKey:@"data"];
     NSLog(@"%@", [keywordValueSet objectForKey:@"data"]);
     
     self.title = @"Loading...";
@@ -146,7 +146,7 @@
     // Compile the values of each keyword as the video cell is tapped.
     NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[keywordValueSet objectForKey:@"data"]];
-    NSLog(@"test data%@",dataSet);
+    
     if (dataSet.count == 0) {
         for (NSString* keyword in keywords) {
             [dataSet setObject:[NSNumber numberWithInt:1] forKey:keyword];
@@ -169,7 +169,7 @@
 }
     [keywordValueSet setObject:dataSet forKey:@"data"];
     [keywordValueSet synchronize];
-    //NSLog(@"%@",dataSet);
+    NSLog(@"%@",dataSet);
 }
 
 
@@ -192,7 +192,7 @@
 
 -(void)sortDictionaryWithObjects:(NSMutableDictionary *)dictionary{
     NSMutableArray *dictionaryKeys = [[dictionary allKeys] mutableCopy];
-   
+    
     int length = [dictionaryKeys count];
     for (int i = length - 1; i>=0; i--) {
         bool toSwitch = false;
