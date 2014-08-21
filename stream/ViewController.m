@@ -25,9 +25,9 @@
     [super viewDidLoad];
     
     NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
-    NSDictionary* dataVaueSet = [[NSDictionary alloc]init];
-    [keywordValueSet setObject:dataVaueSet forKey:@"data"];
-    [keywordValueSet synchronize];
+    //NSDictionary* dataVaueSet = [[NSDictionary alloc]init];
+    //[keywordValueSet setObject:dataVaueSet forKey:@"data"];
+    NSLog(@"%@", [keywordValueSet objectForKey:@"data"]);
     
     self.title = @"Loading...";
     OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
@@ -38,7 +38,9 @@
         }
         
         srcDictionary = [self keywordAlgorithm:keywordsText];
-        NSLog(@"%@", srcDictionary);
+        videoArray =  [[srcDictionary allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+        //NSLog(@"%@", srcDictionary);
+        [self videoRanking];
         //_videoArray = fileList;
         [videoTableView reloadData];
         self.title = @"Data Load Complete...";
@@ -107,7 +109,7 @@
 #pragma mark Table View Delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[srcDictionary allKeys] count];
+    return [videoArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,7 +122,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     //NSLog(@"%@",srcDictionary);
-    videoArray =  [[srcDictionary allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];;
     cell.textLabel.text = [videoArray objectAtIndex:indexPath.row];
     return cell;
 }
@@ -173,15 +174,63 @@
 {
     // Add all the values of the keywords in each video
     NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[keywordValueSet objectForKey:@"data"]];
+    NSMutableDictionary* dataSet = (NSMutableDictionary *)[keywordValueSet objectForKey:@"data"];
+    NSMutableDictionary* finalDataArrangement = [[NSMutableDictionary alloc]init];
     
-    for (NSString* key in dataSet) {
-        NSArray* value = [dataSet objectForKey:key];
+    NSArray *keyArray = [srcDictionary allKeys];
+    
+    for (NSString* key in keyArray) {
+        NSNumber *calcResult = [[NSNumber alloc]initWithInt:[self getScoreFromKey:[srcDictionary objectForKey:key] withKeyArray:dataSet]];
+        [finalDataArrangement setObject:calcResult forKey:key];
     }
     
-    NSLog(@"%@",srcDictionary);
+    [self sortDictionaryWithObjects:finalDataArrangement];
 }
 
+-(void)sortDictionaryWithObjects:(NSMutableDictionary *)dictionary{
+    NSMutableArray *dictionaryKeys = [[dictionary allKeys] mutableCopy];
+   
+    int length = [dictionaryKeys count];
+    for (int i = length - 1; i>=0; i--) {
+        bool toSwitch = false;
+        int currIndex = i;
+        int minValue = [[dictionary objectForKey:[dictionaryKeys objectAtIndex:i]] intValue];
+        
+        for (int j = i - 1; j >= 0; j--) {
+            int currValue = [[dictionary objectForKey:[dictionaryKeys objectAtIndex:j]] intValue];
+            if(currValue < minValue){
+                currIndex = j;
+                minValue = currValue;
+                toSwitch = true;
+            }
+        }
+        if(toSwitch){
+            NSString *origObj = [dictionaryKeys objectAtIndex:i];
+            NSString *indexObj = [dictionaryKeys objectAtIndex:currIndex];
+            [dictionaryKeys setObject:origObj atIndexedSubscript:currIndex];
+            [dictionaryKeys setObject:indexObj atIndexedSubscript:i];
+        }
+    }
+
+    for (NSString *key in dictionaryKeys) {
+        NSLog(@"%@: %@", key, [dictionary objectForKey:key]);
+    }
+    
+    
+    
+}
+
+-(int)getScoreFromKey:(NSArray *)keywords withKeyArray:(NSDictionary *)data{
+    int calcResult = 0;
+    NSArray *storedKeywords = [data allKeys];
+    
+    for (NSString *kWords in keywords) {
+        if([storedKeywords containsObject:kWords]){
+            calcResult += [[data objectForKey:kWords] intValue];
+        }
+    }
+    return calcResult;
+}
 
 
 
