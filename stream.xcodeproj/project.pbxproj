@@ -24,6 +24,8 @@
 		163C3ECD199B9530007E6A60 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C3EBA199B9530007E6A60 /* AFURLRequestSerialization.m */; };
 		163C3ECE199B9530007E6A60 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C3EBC199B9530007E6A60 /* AFURLResponseSerialization.m */; };
 		163C3ECF199B9530007E6A60 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C3EBE199B9530007E6A60 /* AFURLSessionManager.m */; };
+		16E699C219A74787000EB65B /* SimpleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E699C119A74787000EB65B /* SimpleTableCell.xib */; };
+		16E699C519A74816000EB65B /* SimpleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E699C419A74816000EB65B /* SimpleTableCell.m */; };
 		65683F681982A8BB002BDC19 /* DrexelCacheVideoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */; };
 		65683F6B1982A9FE002BDC19 /* DrexelCachePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F6A1982A9FE002BDC19 /* DrexelCachePlayer.m */; };
 		65BD483D19710A1100489F88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD483C19710A1100489F88 /* Foundation.framework */; };
@@ -90,6 +92,9 @@
 		163C3EBC199B9530007E6A60 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		163C3EBD199B9530007E6A60 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		163C3EBE199B9530007E6A60 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		16E699C119A74787000EB65B /* SimpleTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleTableCell.xib; sourceTree = "<group>"; };
+		16E699C319A74816000EB65B /* SimpleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableCell.h; sourceTree = "<group>"; };
+		16E699C419A74816000EB65B /* SimpleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableCell.m; sourceTree = "<group>"; };
 		65683F661982A8BB002BDC19 /* DrexelCacheVideoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCacheVideoDownloader.h; sourceTree = "<group>"; };
 		65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrexelCacheVideoDownloader.m; sourceTree = "<group>"; };
 		65683F691982A9FE002BDC19 /* DrexelCachePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCachePlayer.h; sourceTree = "<group>"; };
@@ -235,6 +240,9 @@
 				65BD485219710A1100489F88 /* ViewController.m */,
 				65BD485419710A1100489F88 /* Images.xcassets */,
 				65BD484319710A1100489F88 /* Supporting Files */,
+				16E699C119A74787000EB65B /* SimpleTableCell.xib */,
+				16E699C319A74816000EB65B /* SimpleTableCell.h */,
+				16E699C419A74816000EB65B /* SimpleTableCell.m */,
 			);
 			path = stream;
 			sourceTree = "<group>";
@@ -366,6 +374,7 @@
 			files = (
 				65BD485519710A1100489F88 /* Images.xcassets in Resources */,
 				65BD484719710A1100489F88 /* InfoPlist.strings in Resources */,
+				16E699C219A74787000EB65B /* SimpleTableCell.xib in Resources */,
 				65BD485019710A1100489F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +408,7 @@
 				163C3EC5199B9530007E6A60 /* UIRefreshControl+AFNetworking.m in Sources */,
 				163C3EC2199B9530007E6A60 /* UIButton+AFNetworking.m in Sources */,
 				163C3ECD199B9530007E6A60 /* AFURLRequestSerialization.m in Sources */,
+				16E699C519A74816000EB65B /* SimpleTableCell.m in Sources */,
 				163C3ECA199B9530007E6A60 /* AFNetworkReachabilityManager.m in Sources */,
 				163C3EBF199B9530007E6A60 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				163C3EC6199B9530007E6A60 /* UIWebView+AFNetworking.m in Sources */,

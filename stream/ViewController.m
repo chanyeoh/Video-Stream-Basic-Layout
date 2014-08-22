@@ -11,6 +11,7 @@
 #import "DrexelCacheVideoDownloader.h"
 #import <AVFoundation/AVFoundation.h>
 #import "OneDriveFileRetrival.h"
+#import "SimpleTableCell.h"
 
 
 @interface ViewController ()
@@ -24,10 +25,10 @@
 {
     [super viewDidLoad];
     
-    NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
-    NSDictionary* dataVaueSet = [[NSDictionary alloc]init];
-    [keywordValueSet setObject:dataVaueSet forKey:@"data"];
-    NSLog(@"%@", [keywordValueSet objectForKey:@"data"]);
+    //NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
+    //NSDictionary* dataVaueSet = [[NSDictionary alloc]init];
+    //[keywordValueSet setObject:dataVaueSet forKey:@"data"];
+    //NSLog(@"%@", [keywordValueSet objectForKey:@"data"]);
     
     self.title = @"Loading...";
     OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
@@ -43,7 +44,7 @@
         [self videoRanking];
         //_videoArray = fileList;
         [videoTableView reloadData];
-        self.title = @"Data Load Complete...";
+        self.title = @"Data Load Complete";
         
     }];
     
@@ -114,18 +115,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
+    static NSString *simpleTableIdentifier = @"SimpleTableCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    SimpleTableCell *cell = (SimpleTableCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SimpleTableCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[keywordValueSet objectForKey:@"data"]];
     
     //NSLog(@"%@",srcDictionary);
-    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", [videoArray objectAtIndex:indexPath.row], [[NSNumber alloc]initWithInt:[self getScoreFromKey:[srcDictionary objectForKey:[videoArray objectAtIndex:indexPath.row]] withKeyArray:dataSet]]];
+    cell.videoLabel.text = [NSString stringWithFormat:@"%@", [videoArray objectAtIndex:indexPath.row]];
+    cell.valueLabel.text = [NSString stringWithFormat:@"%@", [[NSNumber alloc]initWithInt:[self getScoreFromKey:[srcDictionary objectForKey:[videoArray objectAtIndex:indexPath.row]] withKeyArray:dataSet]]];
     return cell;
 }
 
@@ -134,6 +137,8 @@
     NSArray* tempKeywords = [srcDictionary objectForKey:[videoArray objectAtIndex:indexPath.row]];
     
     [self dataUpdateValuesForKeywords:tempKeywords];
+    [self videoRanking];
+    [videoTableView reloadData];
     
     // Detects the keywords and print it out
     // TODO Update it into NSUserDefaults or something to store the value
