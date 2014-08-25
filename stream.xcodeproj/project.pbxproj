@@ -26,6 +26,7 @@
 		163C3ECF199B9530007E6A60 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163C3EBE199B9530007E6A60 /* AFURLSessionManager.m */; };
 		16E699C219A74787000EB65B /* SimpleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E699C119A74787000EB65B /* SimpleTableCell.xib */; };
 		16E699C519A74816000EB65B /* SimpleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E699C419A74816000EB65B /* SimpleTableCell.m */; };
+		16E699C919AB7061000EB65B /* KeywordAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E699C819AB7061000EB65B /* KeywordAlgorithm.m */; };
 		65683F681982A8BB002BDC19 /* DrexelCacheVideoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */; };
 		65683F6B1982A9FE002BDC19 /* DrexelCachePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F6A1982A9FE002BDC19 /* DrexelCachePlayer.m */; };
 		65BD483D19710A1100489F88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD483C19710A1100489F88 /* Foundation.framework */; };
@@ -95,6 +96,8 @@
 		16E699C119A74787000EB65B /* SimpleTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleTableCell.xib; sourceTree = "<group>"; };
 		16E699C319A74816000EB65B /* SimpleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableCell.h; sourceTree = "<group>"; };
 		16E699C419A74816000EB65B /* SimpleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableCell.m; sourceTree = "<group>"; };
+		16E699C719AB7061000EB65B /* KeywordAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeywordAlgorithm.h; sourceTree = "<group>"; };
+		16E699C819AB7061000EB65B /* KeywordAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeywordAlgorithm.m; sourceTree = "<group>"; };
 		65683F661982A8BB002BDC19 /* DrexelCacheVideoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCacheVideoDownloader.h; sourceTree = "<group>"; };
 		65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrexelCacheVideoDownloader.m; sourceTree = "<group>"; };
 		65683F691982A9FE002BDC19 /* DrexelCachePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCachePlayer.h; sourceTree = "<group>"; };
@@ -196,6 +199,15 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		16E699C619A8852C000EB65B /* KeywordAlgorithm */ = {
+			isa = PBXGroup;
+			children = (
+				16E699C719AB7061000EB65B /* KeywordAlgorithm.h */,
+				16E699C819AB7061000EB65B /* KeywordAlgorithm.m */,
+			);
+			name = KeywordAlgorithm;
+			sourceTree = "<group>";
+		};
 		65BD483019710A1100489F88 = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +241,7 @@
 		65BD484219710A1100489F88 /* stream */ = {
 			isa = PBXGroup;
 			children = (
+				16E699C619A8852C000EB65B /* KeywordAlgorithm */,
 				65E8BDD8199DAC2800721EC0 /* DrexelCacheVideoPlayer */,
 				65E8BDD4199CFB8400721EC0 /* FileRetrieve */,
 				163C3E99199B9530007E6A60 /* UIKit+AFNetworking */,
@@ -417,6 +430,7 @@
 				163C3EC3199B9530007E6A60 /* UIImageView+AFNetworking.m in Sources */,
 				163C3EC9199B9530007E6A60 /* AFHTTPSessionManager.m in Sources */,
 				65BD484919710A1100489F88 /* main.m in Sources */,
+				16E699C919AB7061000EB65B /* KeywordAlgorithm.m in Sources */,
 				163C3ECF199B9530007E6A60 /* AFURLSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
