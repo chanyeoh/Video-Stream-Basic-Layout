@@ -1,4 +1,4 @@
-//
+///Users/yeohchan/Movies/stream/stream.xcodeproj
 //  ViewController.m
 //  stream
 //
@@ -10,9 +10,8 @@
 #import "DrexelCachePlayer.h"
 #import "DrexelCacheVideoDownloader.h"
 #import <AVFoundation/AVFoundation.h>
-#import "OneDriveFileRetrival.h"
 #import "SimpleTableCell.h"
-#import "KeywordAlgorithm.h"
+#import "MovieViewController.h"
 
 
 @interface ViewController ()
@@ -20,31 +19,36 @@
 @end
 
 @implementation ViewController
-//@synthesize controllerView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    // Do any additional setup after loading the view, typically from a nib.
     self.title = @"Loading...";
-    OneDriveFileRetrival *oneDrive = [[OneDriveFileRetrival alloc]init];
+    
+    keywordAlgo = [[KeywordAlgorithm alloc]init];
+    oneDrive = [[OneDriveFileRetrival alloc]init];
+    
     [oneDrive getFileList:^(NSArray *fileList, NSString *keywordsText, NSError *error) {
         if(error){
             self.title = @"Error On Loading...";
             return;
         }
-        KeywordAlgorithm* keywordsAlgorithmFile = [[KeywordAlgorithm alloc]init];
-        srcDictionary = [keywordsAlgorithmFile keywordAlgorithm:keywordsText];
-        videoArray =  [[srcDictionary allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-        //NSLog(@"%@", srcDictionary);
-        [keywordsAlgorithmFile videoRanking];
-        //_videoArray = fileList;
+        
+        videoArray = [keywordAlgo videoRanking:[keywordAlgo extractKeywords:keywordsText]];
         [videoTableView reloadData];
+        
         self.title = @"Data Load Complete";
         
     }];
-    
-	// Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    if(videoArray != nil){
+        videoArray = [keywordAlgo videoRanking:videoArray];
+        [videoTableView reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +56,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 #pragma mark -
@@ -71,32 +76,28 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SimpleTableCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    NSUserDefaults* keywordValueSet = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[keywordValueSet objectForKey:@"data"]];
-    KeywordAlgorithm* keywordsAlgorithmFile = [[KeywordAlgorithm alloc]init];
-
-    //NSLog(@"%@",srcDictionary);
-    cell.videoLabel.text = [NSString stringWithFormat:@"%@", [videoArray objectAtIndex:indexPath.row]];
-    cell.valueLabel.text = [NSString stringWithFormat:@"%@", [[NSNumber alloc]initWithInt:[keywordsAlgorithmFile getScoreFromKey:[srcDictionary objectForKey:[videoArray objectAtIndex:indexPath.row]] withKeyArray:dataSet]]];
+    
+    VideoDAO *vidDao = [videoArray objectAtIndex:indexPath.row];
+    cell.videoLabel.text = [vidDao fileName];
+    
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSArray* tempKeywords = [srcDictionary objectForKey:[videoArray objectAtIndex:indexPath.row]];
-    KeywordAlgorithm* keywordsAlgorithmFile = [[KeywordAlgorithm alloc]init];
-
-    [keywordsAlgorithmFile dataUpdateValuesForKeywords:tempKeywords];
-    [keywordsAlgorithmFile videoRanking];
-    [videoTableView reloadData];
     
-    // Detects the keywords and print it out
-    // TODO Update it into NSUserDefaults or something to store the value
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    //NSLog(@"%@",tempKeywords);
+    VideoDAO *vidDao = [videoArray objectAtIndex:indexPath.row];
+    [keywordAlgo dataUpdateValuesForKeywords:vidDao.keywords];
+    
+    
+    MovieViewController *movieViewController = [sb instantiateViewControllerWithIdentifier:@"MovieViewController"];
+    movieViewController.oneDrive = oneDrive;
+    movieViewController.vidDAO = vidDao;
+    [self.navigationController pushViewController:movieViewController animated:YES];
     
 }
-
 
 
 // Play Video (Still Need Fixes)

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VideoDAO.h"
 
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
@@ -15,6 +16,7 @@ typedef void (^OneDriveFileRetrivalCompletionBlock)(NSArray *fileList, NSString 
 typedef void (^OneDriveFileRetrivalSessionKeyBlock)(NSString *sessionKey, NSError *error);
 typedef void (^OneDriveFileRetrivalShareIdBlock)(NSString *shareId, NSError *error);
 typedef void (^OneDriveFileRetrivalKeywordsTextBlock)(NSString *keywords, NSError *error);
+typedef void (^OneDriveFileRetrivalUrlLinkBlock)(NSString *link, NSError *error);
 typedef void (^OneDriveFileRetrivalVideListBlock)(NSArray *mp4FileList, NSString *keywordFileId, NSError *error);
 
 @interface OneDriveFileRetrival : NSObject{
@@ -26,4 +28,5 @@ typedef void (^OneDriveFileRetrivalVideListBlock)(NSArray *mp4FileList, NSString
 
 -(id)initWithSessionKey:(NSString *)sessionKey;
 -(void)getFileList:(OneDriveFileRetrivalCompletionBlock)completionBlock;
+-(void)getDownloadLinkFromVideoDao:(VideoDAO *)video withBlock:(OneDriveFileRetrivalUrlLinkBlock) completionBlock;
 @end

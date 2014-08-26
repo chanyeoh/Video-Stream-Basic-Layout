@@ -7,16 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DrexelCachePlayer.h"
-#import <MediaPlayer/MediaPlayer.h>
+#import "KeywordAlgorithm.h"
+#import "OneDriveFileRetrival.h"
 
 @interface ViewController : UIViewController{
     NSArray *videoArray;
-    NSDictionary *srcDictionary;
-    NSMutableDictionary* dataSetKeywordValues;
     IBOutlet UITableView *videoTableView;
     
+    KeywordAlgorithm *keywordAlgo;
+    OneDriveFileRetrival *oneDrive;
 }
 
-@property (nonatomic,strong) IBOutlet DrexelCachePlayer *controllerView;
 @end

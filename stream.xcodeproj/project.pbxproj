@@ -27,6 +27,10 @@
 		16E699C219A74787000EB65B /* SimpleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E699C119A74787000EB65B /* SimpleTableCell.xib */; };
 		16E699C519A74816000EB65B /* SimpleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E699C419A74816000EB65B /* SimpleTableCell.m */; };
 		16E699C919AB7061000EB65B /* KeywordAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E699C819AB7061000EB65B /* KeywordAlgorithm.m */; };
+		654BE9D019AC1A1600D5DF4A /* OneDriveFileRetrival.m in Sources */ = {isa = PBXBuildFile; fileRef = 654BE9CF19AC1A1600D5DF4A /* OneDriveFileRetrival.m */; };
+		654BE9D219AC1A5A00D5DF4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654BE9D119AC1A5A00D5DF4A /* Main.storyboard */; };
+		654BE9D519AC1AB900D5DF4A /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654BE9D419AC1AB900D5DF4A /* MovieViewController.m */; };
+		654BE9D919AC1AF000D5DF4A /* VideoDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 654BE9D819AC1AF000D5DF4A /* VideoDAO.m */; };
 		65683F681982A8BB002BDC19 /* DrexelCacheVideoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */; };
 		65683F6B1982A9FE002BDC19 /* DrexelCachePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65683F6A1982A9FE002BDC19 /* DrexelCachePlayer.m */; };
 		65BD483D19710A1100489F88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD483C19710A1100489F88 /* Foundation.framework */; };
@@ -35,7 +39,6 @@
 		65BD484719710A1100489F88 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65BD484519710A1100489F88 /* InfoPlist.strings */; };
 		65BD484919710A1100489F88 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD484819710A1100489F88 /* main.m */; };
 		65BD484D19710A1100489F88 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD484C19710A1100489F88 /* AppDelegate.m */; };
-		65BD485019710A1100489F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65BD484E19710A1100489F88 /* Main.storyboard */; };
 		65BD485319710A1100489F88 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD485219710A1100489F88 /* ViewController.m */; };
 		65BD485519710A1100489F88 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BD485419710A1100489F88 /* Images.xcassets */; };
 		65BD485C19710A1100489F88 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD485B19710A1100489F88 /* XCTest.framework */; };
@@ -43,7 +46,6 @@
 		65BD485E19710A1100489F88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BD484019710A1100489F88 /* UIKit.framework */; };
 		65BD486619710A1100489F88 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65BD486419710A1100489F88 /* InfoPlist.strings */; };
 		65BD486819710A1100489F88 /* streamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD486719710A1100489F88 /* streamTests.m */; };
-		65E8BDD7199CFD6F00721EC0 /* OneDriveFileRetrival.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E8BDD6199CFD6F00721EC0 /* OneDriveFileRetrival.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,13 @@
 		16E699C419A74816000EB65B /* SimpleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableCell.m; sourceTree = "<group>"; };
 		16E699C719AB7061000EB65B /* KeywordAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeywordAlgorithm.h; sourceTree = "<group>"; };
 		16E699C819AB7061000EB65B /* KeywordAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeywordAlgorithm.m; sourceTree = "<group>"; };
+		654BE9CE19AC1A1600D5DF4A /* OneDriveFileRetrival.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneDriveFileRetrival.h; sourceTree = "<group>"; };
+		654BE9CF19AC1A1600D5DF4A /* OneDriveFileRetrival.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneDriveFileRetrival.m; sourceTree = "<group>"; };
+		654BE9D119AC1A5A00D5DF4A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		654BE9D319AC1AB900D5DF4A /* MovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieViewController.h; sourceTree = "<group>"; };
+		654BE9D419AC1AB900D5DF4A /* MovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieViewController.m; sourceTree = "<group>"; };
+		654BE9D719AC1AF000D5DF4A /* VideoDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDAO.h; sourceTree = "<group>"; };
+		654BE9D819AC1AF000D5DF4A /* VideoDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDAO.m; sourceTree = "<group>"; };
 		65683F661982A8BB002BDC19 /* DrexelCacheVideoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCacheVideoDownloader.h; sourceTree = "<group>"; };
 		65683F671982A8BB002BDC19 /* DrexelCacheVideoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrexelCacheVideoDownloader.m; sourceTree = "<group>"; };
 		65683F691982A9FE002BDC19 /* DrexelCachePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrexelCachePlayer.h; sourceTree = "<group>"; };
@@ -112,7 +121,6 @@
 		65BD484A19710A1100489F88 /* stream-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stream-Prefix.pch"; sourceTree = "<group>"; };
 		65BD484B19710A1100489F88 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		65BD484C19710A1100489F88 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		65BD484F19710A1100489F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65BD485119710A1100489F88 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		65BD485219710A1100489F88 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		65BD485419710A1100489F88 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -121,8 +129,6 @@
 		65BD486319710A1100489F88 /* streamTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "streamTests-Info.plist"; sourceTree = "<group>"; };
 		65BD486519710A1100489F88 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65BD486719710A1100489F88 /* streamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = streamTests.m; sourceTree = "<group>"; };
-		65E8BDD5199CFD6F00721EC0 /* OneDriveFileRetrival.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneDriveFileRetrival.h; sourceTree = "<group>"; };
-		65E8BDD6199CFD6F00721EC0 /* OneDriveFileRetrival.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneDriveFileRetrival.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +214,25 @@
 			name = KeywordAlgorithm;
 			sourceTree = "<group>";
 		};
+		654BE9CD19AC19D100D5DF4A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				16E699C119A74787000EB65B /* SimpleTableCell.xib */,
+				16E699C319A74816000EB65B /* SimpleTableCell.h */,
+				16E699C419A74816000EB65B /* SimpleTableCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		654BE9D619AC1ADC00D5DF4A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				654BE9D719AC1AF000D5DF4A /* VideoDAO.h */,
+				654BE9D819AC1AF000D5DF4A /* VideoDAO.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		65BD483019710A1100489F88 = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +266,8 @@
 		65BD484219710A1100489F88 /* stream */ = {
 			isa = PBXGroup;
 			children = (
+				654BE9D619AC1ADC00D5DF4A /* Data */,
+				654BE9CD19AC19D100D5DF4A /* Views */,
 				16E699C619A8852C000EB65B /* KeywordAlgorithm */,
 				65E8BDD8199DAC2800721EC0 /* DrexelCacheVideoPlayer */,
 				65E8BDD4199CFB8400721EC0 /* FileRetrieve */,
@@ -248,14 +275,13 @@
 				163C3EAB199B9530007E6A60 /* AFNetworking */,
 				65BD484B19710A1100489F88 /* AppDelegate.h */,
 				65BD484C19710A1100489F88 /* AppDelegate.m */,
-				65BD484E19710A1100489F88 /* Main.storyboard */,
+				654BE9D119AC1A5A00D5DF4A /* Main.storyboard */,
 				65BD485119710A1100489F88 /* ViewController.h */,
 				65BD485219710A1100489F88 /* ViewController.m */,
+				654BE9D319AC1AB900D5DF4A /* MovieViewController.h */,
+				654BE9D419AC1AB900D5DF4A /* MovieViewController.m */,
 				65BD485419710A1100489F88 /* Images.xcassets */,
 				65BD484319710A1100489F88 /* Supporting Files */,
-				16E699C119A74787000EB65B /* SimpleTableCell.xib */,
-				16E699C319A74816000EB65B /* SimpleTableCell.h */,
-				16E699C419A74816000EB65B /* SimpleTableCell.m */,
 			);
 			path = stream;
 			sourceTree = "<group>";
@@ -292,8 +318,8 @@
 		65E8BDD4199CFB8400721EC0 /* FileRetrieve */ = {
 			isa = PBXGroup;
 			children = (
-				65E8BDD5199CFD6F00721EC0 /* OneDriveFileRetrival.h */,
-				65E8BDD6199CFD6F00721EC0 /* OneDriveFileRetrival.m */,
+				654BE9CE19AC1A1600D5DF4A /* OneDriveFileRetrival.h */,
+				654BE9CF19AC1A1600D5DF4A /* OneDriveFileRetrival.m */,
 			);
 			name = FileRetrieve;
 			sourceTree = "<group>";
@@ -388,7 +414,7 @@
 				65BD485519710A1100489F88 /* Images.xcassets in Resources */,
 				65BD484719710A1100489F88 /* InfoPlist.strings in Resources */,
 				16E699C219A74787000EB65B /* SimpleTableCell.xib in Resources */,
-				65BD485019710A1100489F88 /* Main.storyboard in Resources */,
+				654BE9D219AC1A5A00D5DF4A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,13 +435,15 @@
 			files = (
 				65BD485319710A1100489F88 /* ViewController.m in Sources */,
 				65BD484D19710A1100489F88 /* AppDelegate.m in Sources */,
-				65E8BDD7199CFD6F00721EC0 /* OneDriveFileRetrival.m in Sources */,
+				654BE9D019AC1A1600D5DF4A /* OneDriveFileRetrival.m in Sources */,
 				163C3EC1199B9530007E6A60 /* UIAlertView+AFNetworking.m in Sources */,
 				163C3ECE199B9530007E6A60 /* AFURLResponseSerialization.m in Sources */,
 				163C3ECC199B9530007E6A60 /* AFURLConnectionOperation.m in Sources */,
 				163C3EC4199B9530007E6A60 /* UIProgressView+AFNetworking.m in Sources */,
 				65683F6B1982A9FE002BDC19 /* DrexelCachePlayer.m in Sources */,
 				163C3EC8199B9530007E6A60 /* AFHTTPRequestOperationManager.m in Sources */,
+				654BE9D519AC1AB900D5DF4A /* MovieViewController.m in Sources */,
+				654BE9D919AC1AF000D5DF4A /* VideoDAO.m in Sources */,
 				65683F681982A8BB002BDC19 /* DrexelCacheVideoDownloader.m in Sources */,
 				163C3ECB199B9530007E6A60 /* AFSecurityPolicy.m in Sources */,
 				163C3EC5199B9530007E6A60 /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -460,14 +488,6 @@
 				65BD484619710A1100489F88 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		65BD484E19710A1100489F88 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65BD484F19710A1100489F88 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		65BD486419710A1100489F88 /* InfoPlist.strings */ = {

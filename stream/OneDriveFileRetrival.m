@@ -47,6 +47,24 @@
     [self getFolderList:completionBlock];
 }
 
+-(void)getDownloadLinkFromVideoDao:(VideoDAO *)video withBlock:(OneDriveFileRetrivalUrlLinkBlock) completionBlock{
+    [self getShareID:^(NSString *keywords, NSError *error) {
+        
+        [_manager.requestSerializer setValue:_sessionKey forHTTPHeaderField:@"Authorization"];
+        NSString *requestURL = @"https://api.point.io/v2/folders/files/download.json";
+        requestURL = [requestURL stringByAppendingFormat:@"?folderid=%@&filename=%@&fileid=%@",keywords , video.fileName,video.fileId];
+        
+        [_manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+             NSString *downloadLink = [responseObject objectForKey:@"RESULT"];
+             completionBlock(downloadLink, nil);
+         }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  completionBlock(nil, error);
+              }];
+    }];
+}
+
 #pragma mark -
 #pragma mark Private Methods
 /**
@@ -82,8 +100,8 @@
         NSString *shareID = [dataComponents objectAtIndex:shareIDIndex];
         shareIdBlock(shareID, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            shareIdBlock(nil, error);
-         }];
+        shareIdBlock(nil, error);
+    }];
 }
 
 /**
@@ -119,8 +137,8 @@
              [fileIDList addObject:[temp objectAtIndex:fileIDIndex]];
              // To check for the list of dataComponents that have the TYPE "FILE" & and file extension of .mp4
              if ([[temp objectAtIndex:typeIndex]  isEqual: @"FILE"] && [[temp objectAtIndex:nameIndex] rangeOfString:@".mp4"].location != NSNotFound) {
-              [nameList addObject:[temp objectAtIndex:nameIndex]];
-              }
+                 [nameList addObject:[temp objectAtIndex:nameIndex]];
+             }
              if([[temp objectAtIndex:nameIndex] isEqualToString:@"Keywords.txt"]){
                  keywordsTxt = [temp objectAtIndex:fileIDIndex];
              }
@@ -152,9 +170,9 @@
          NSString *textfileData = [[NSString alloc] initWithData:textFile encoding:NSASCIIStringEncoding];
          keywordBlock(textfileData, nil);
      }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             keywordBlock(nil, error);
-         }];
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              keywordBlock(nil, error);
+          }];
     
 }
 /**

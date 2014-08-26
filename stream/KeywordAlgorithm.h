@@ -7,17 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VideoDAO.h"
 
-@interface KeywordAlgorithm : NSObject
-{
-    NSDictionary *srcDictionary;
-    NSArray *videoArray;
+#define DICT_DATA @"data"
 
+@interface KeywordAlgorithm : NSObject{
+    NSUserDefaults* userDefaults;
 }
 
--(NSDictionary *)keywordAlgorithm:(NSString *)keywordText;
--(void)videoRanking;
--(int)getScoreFromKey:(NSArray *)keywords withKeyArray:(NSDictionary *)data;
+-(NSArray *)extractKeywords:(NSString *)keywordText;
+-(NSArray *)videoRanking:(NSArray *)keyArray;
 -(void)dataUpdateValuesForKeywords:(NSArray*)keywords;
-
 @end
