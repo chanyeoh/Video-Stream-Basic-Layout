@@ -121,6 +121,7 @@
 }
 
 
+
 -(int)getScoreFromKey:(NSArray *)keywords withKeyArray:(NSDictionary *)data{
     int calcResult = 0;
     NSArray *storedKeywords = [data allKeys];

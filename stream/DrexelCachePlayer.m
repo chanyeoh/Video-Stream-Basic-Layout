@@ -21,7 +21,6 @@
         
         NSFileManager *manager = [NSFileManager defaultManager];
         
-        
         NSString *outputURL = [documentsDirectory stringByAppendingPathComponent:@"output"] ;
         [manager createDirectoryAtPath:outputURL withIntermediateDirectories:YES attributes:nil error:nil];
         
@@ -40,17 +39,15 @@
 }
 
 -(void)play{
-    // TODO Detect Change in time
     [_mcLoad play];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleMPMoviePlayerPlaybackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification                                        object:_mcLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMPMoviePlayerPlaybackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification  object:_mcLoad];
 }
+
 
 - (void)handleMPMoviePlayerPlaybackDidFinish:(NSNotification *)notification
 {
-    // TODO Fix HardCode
-    [_mcOnline setInitialPlaybackTime:_mcLoad.duration * 0.5];
+    [_mcOnline setInitialPlaybackTime:_mcLoad.duration * LOAD_AMOUNT];
     
     NSDictionary *notificationUserInfo = [notification userInfo];
     NSNumber *resultValue = [notificationUserInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
@@ -60,14 +57,14 @@
         NSError *mediaPlayerError = [notificationUserInfo objectForKey:@"error"];
         if (mediaPlayerError)
         {
-            NSLog(@"playback failed with error description: %@", [mediaPlayerError localizedDescription]);
+            //NSLog(@"playback failed with error description: %@", [mediaPlayerError localizedDescription]);
         }
         else
         {
-            NSLog(@"playback failed without any given reason");
+            //NSLog(@"playback failed without any given reason");
         }
     }
-
+    
     [_mcLoad.view setHidden:YES];
     [_mcOnline play];
 }

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VideoDAO.h"
 
 typedef void (^DrexelCacheVideoDownloaderCompletionBlock)(NSMutableData *respData);
 
@@ -22,4 +23,6 @@ typedef void (^DrexelCacheVideoDownloaderCompletionBlock)(NSMutableData *respDat
 
 -(id)initWithFilename:(NSString *)filename withPercentage:(float)percentage;
 -(void)extractVideoCompetion:(DrexelCacheVideoDownloaderCompletionBlock)completionBlock;
+
+-(void)removeVideo:(VideoDAO *)vidDao;
 @end

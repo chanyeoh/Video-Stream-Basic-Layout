@@ -7,6 +7,7 @@
 //
 
 #import "DrexelCacheVideoDownloader.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation DrexelCacheVideoDownloader
 
@@ -32,6 +33,19 @@
     [conn start];
 }
 
+-(void)removeVideo:(VideoDAO*)vidDao{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSString *outputURL = [documentsDirectory stringByAppendingPathComponent:@"output"] ;
+    [manager createDirectoryAtPath:outputURL withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    outputURL = [outputURL stringByAppendingPathComponent:vidDao.fileName];
+    [manager removeItemAtPath:outputURL error:nil];
+}
+
 #pragma mark -
 #pragma mark NSURLConnection Delegate Methods
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -49,7 +63,6 @@
     _totalLength += [data length];
     [_responseData appendData:data];
     float percentage = (_totalLength / (float)_expectedLength);
-    NSLog(@"Progress: %f", percentage*100);
     if(percentage >= _percentage){
         [conn cancel];
         

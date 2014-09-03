@@ -12,9 +12,12 @@
 #import "VideoDAO.h"
 #import <MediaPlayer/MediaPlayer.h>
 
+#define CACHE_TIME_SEC 2
+
 @interface MovieViewController : UIViewController{
     IBOutlet UIView *cView;
-    MPMoviePlayerController *controllerView;
+    NSString *cacheLink;
+    DrexelCachePlayer *controllerView;
 }
 
 @property(strong, nonatomic)VideoDAO *vidDAO;

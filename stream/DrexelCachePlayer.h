@@ -6,10 +6,13 @@
 //  Copyright (c) 2014 drexel. All rights reserved.
 //
 
+#define LOAD_AMOUNT 0.5
+
 #import <Foundation/Foundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface DrexelCachePlayer : UIView{
+    bool switched;
     MPMoviePlayerController* _mcLoad;
     MPMoviePlayerController* _mcOnline;
 }

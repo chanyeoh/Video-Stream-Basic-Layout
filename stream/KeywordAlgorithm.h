@@ -18,4 +18,5 @@
 -(NSArray *)extractKeywords:(NSString *)keywordText;
 -(NSArray *)videoRanking:(NSArray *)keyArray;
 -(void)dataUpdateValuesForKeywords:(NSArray*)keywords;
+-(int)getScoreFromKey:(NSArray *)keywords withKeyArray:(NSDictionary *)data;
 @end
