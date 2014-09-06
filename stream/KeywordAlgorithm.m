@@ -79,7 +79,7 @@
     // Compile the values of each keyword as the video cell is tapped.
     NSMutableDictionary* dataSet = [[NSMutableDictionary alloc]initWithDictionary:[userDefaults objectForKey:DICT_DATA]];
     
-    if (dataSet.count == 0) {
+    if (dataSet == nil || dataSet.count == 0) {
         for (NSString* keyword in keywords) {
             [dataSet setObject:[NSNumber numberWithInt:1] forKey:keyword];
         }

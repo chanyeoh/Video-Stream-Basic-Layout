@@ -30,7 +30,6 @@
     oneDrive = [[OneDriveFileRetrival alloc]init];
     
     [oneDrive getFileList:^(NSArray *fileList, NSString *keywordsText, NSError *error) {
-        NSLog(@"%@", error);
         if(error){
             self.title = @"Error On Loading...";
             return;
